@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Enployer;
+use App\Models\Employer;
 
-class EmployerController extends Controller
+class EmployerController extends AuthController
 {
 
     public function index()
@@ -31,6 +31,18 @@ class EmployerController extends Controller
     public function destroy(string $id)
     {
         Employer::delete($id);
+    }
+
+    public function register(Request $request)
+    {
+        $user = parent::register($request);
+        $values = $request->only('cnpj', 'bussiness_name', 'fantasy_name');
+        $values['user_id'] = $user->id;
+        $employer = Employer::create($values);
+        if(!$employer) {
+            abort(418, 'Register Fail');
+        }
+        return response()->json([$employer, $user]);
     }
 
 }

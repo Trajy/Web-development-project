@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Enployee;
+use App\Models\Employee;
 
-class EmployeeController extends Controller
+class EmployeeController extends AuthController
 {
+
     public function index()
     {
         return Employee::all();
@@ -19,7 +20,7 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        EmployeeL::create($request);
+        Employee::create($request);
     }
 
     public function update(Request $request, string $id)
@@ -30,6 +31,17 @@ class EmployeeController extends Controller
     public function destroy(string $id)
     {
         Employee::delete($id);
+    }
+
+    public function register(Request $request)
+    {   $user = parent::register($request);
+        $values = $request->only('name', 'surname', 'cpf', 'birth_date');
+        $values['user_id'] = $user->id;
+        $employee = Employee::create($values);
+        if(!$employee) {
+            abort(418, 'Register Fail');
+        }
+        return response()->json([$employee, $user]);
     }
 
 }
