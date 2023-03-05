@@ -28,7 +28,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        return $this->user()->currentAccessToken()->delete();
+        auth()->user()->currentAccessToken()->delete();
     }
 
 }
