@@ -10,11 +10,13 @@ class AuthController extends Controller
 {
 
     public function register(Request $resquest) {
-        $user = User::create($resquest->only('name', 'email', 'password'));
+        $values = $resquest->only('name', 'email', 'password');
+        $values['type'] = str_contains(url()->current(), 'employer') ? 'employer' : 'employee';
+        $user = User::create($values);
         if(!$user) {
             abort(418, 'Register Fail');
         }
-        return response()->json($user);
+        return $user;
     }
 
     public function login(Request $request) {
@@ -22,13 +24,18 @@ class AuthController extends Controller
         if(!$user) {
             abort(401, 'Invalid Credentials');
         }
-        $token = $user->createToken('auth_token');
-        return response()->json(['token' => $token->plainTextToken]);
+        $token = $user->createToken('auth_token', [$user->type]);
+        return response()->json(['token' => $token->plainTextToken, 'client_type' => $user->type]);
     }
 
     public function logout()
     {
         auth()->user()->currentAccessToken()->delete();
+    }
+
+    public function user()
+    {
+        return auth()->user();
     }
 
 }
