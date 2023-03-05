@@ -10,9 +10,13 @@ class Employment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'office', 'description', 'salary', 'user_id'
+    ];
+
     public function employer()
     {
-        return $this->belongsTo(Employment::class);
+        return $this->belongsTo(Employer::class);
     }
 
 }
