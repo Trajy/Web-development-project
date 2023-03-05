@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('cnpj')->unique();
-            $table->string('razao_social');
-            $table->string('nome_fantasia');
+            $table->string('bussiness_name');
+            $table->string('fantasy_name');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employments');
+        Schema::dropIfExists('employers');
     }
 };
