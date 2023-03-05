@@ -18,14 +18,10 @@ use App\Http\Controllers\EmploymentController;
 |
 */
 
-Route::resources(['employments' => EmploymentController::class,])->only(['index']);
-
-Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::resources([
-        'employments' => EmploymentController::class,
-    ]);
+Route::resource('employments', EmploymentController::class)->only('index');
+Route::middleware(['auth:sanctum', 'ability:employer'])->group(function() {
+    Route::resource('employments', EmploymentController::class)->except('index');
 });
-
 Route::prefix('auth')->group(function () {
     Route::post('register', [EmployeeController::class, 'register']);
     Route::post('employer/register', [EmployerController::class, 'register']);

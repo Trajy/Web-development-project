@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Enployment;
+use App\Models\Employment;
 
 class EmploymentController extends Controller
 {
@@ -19,7 +20,9 @@ class EmploymentController extends Controller
 
     public function store(Request $request)
     {
-        Employment::create($request);
+        $values = $request->all();
+        $values['user_id'] = auth()->user()->id;
+        Employment::create($values);
     }
 
     public function update(Request $request, string $id)
