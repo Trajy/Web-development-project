@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        EmployerTableSeeder::run();
-        EmployeeTableSeeder::run();
-        EmploymentTableSeeder::run();
-        EmployeeEmploymentTableSeeder::run();
+        (new EmployerTableSeeder())->run();
+        (new EmployeeTableSeeder())->run();
+        (new EmploymentTableSeeder)->run();
+        (new EmployeeEmploymentTableSeeder)->run();
     }
 }
