@@ -38,12 +38,72 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Retorna o Token e o tipo do usuario"
+                        "description": "Retorna o Token e o tipo do usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "3|4pHV2Eb6zqJs3z6MWqPKmKoF7EUONp4MuJCfJYAt"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "employer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Retorna Invalid Credentials"
                     }
                 }
+            }
+        },
+        "/api/auth/logout": {
+            "delete": {
+                "tags": [
+                    "Auth Controller"
+                ],
+                "summary": "Realizar o logout",
+                "description": "end-point para revogar um token de autorizacao",
+                "operationId": "1ef69131b914976d7b0827b2b9d192df",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Baerer token que sera revogado"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o Token e o tipo do usuario"
+                    },
+                    "401": {
+                        "description": "Retorno caso o token nao esteja registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/api/auth/register": {
@@ -161,7 +221,7 @@
         "securitySchemes": {
             "bearerToken": {
                 "type": "http",
-                "description": "Acess token obtido na autenticação",
+                "description": "Baerer token obtido na autenticação",
                 "name": "Authorization",
                 "in": "header",
                 "bearerFormat": "JWT",
