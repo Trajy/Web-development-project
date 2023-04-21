@@ -1,0 +1,172 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Employment Api Documentacao",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth Controller"
+                ],
+                "summary": "Realizar o login",
+                "description": "end-point obter um token de autorizacao para o usuario",
+                "operationId": "8dcb70df1020986038d098cc08d05dae",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "teste_usuario@example.org"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Retorna o Token e o tipo do usuario"
+                    },
+                    "401": {
+                        "description": "Retorna Invalid Credentials"
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth Controller"
+                ],
+                "summary": "Registrar um novo colaborador",
+                "description": "end-point utilizado para registrar um novo colaborador",
+                "operationId": "4d6e95be84db27edf40c5f8bf6cc295a",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string",
+                                        "example": "11222330188"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Fulano"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "De Tal"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "teste_usuario@example.org"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do usuario e dados do colaborador"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                }
+            }
+        },
+        "/api/auth/employer/register": {
+            "post": {
+                "tags": [
+                    "Auth Controller"
+                ],
+                "summary": "Registrar um novo empregador",
+                "description": "end-point utilizado para registrar um novo empregador",
+                "operationId": "7e2c0bfe50086b7ff22ca71b785428b5",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "cnpj": {
+                                        "type": "string",
+                                        "example": "11222333000188"
+                                    },
+                                    "bussiness_name": {
+                                        "type": "string",
+                                        "example": "Empresa Tal"
+                                    },
+                                    "fansasy_name": {
+                                        "type": "string",
+                                        "example": "Tal Empresa"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Tal Empresa"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "teste_usuario@example.org"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do usuario e dados do empregador"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerToken": {
+                "type": "http",
+                "description": "Acess token obtido na autenticação",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
