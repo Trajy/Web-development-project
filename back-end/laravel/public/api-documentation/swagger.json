@@ -106,6 +106,79 @@
                 ]
             }
         },
+        "/api/auth/user": {
+            "get": {
+                "tags": [
+                    "Auth Controller"
+                ],
+                "summary": "Obtem os dados do usuario",
+                "description": "end-point obter os dados do usuario logado a partir do token",
+                "operationId": "e23e5f9b32cba7953a224624a2a16544",
+                "responses": {
+                    "200": {
+                        "description": "Retorna o Token e o tipo do usuario",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Empresa Tal"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "fulano-de-tal@exemplo.com"
+                                        },
+                                        "email_verified_at": {
+                                            "type": "string",
+                                            "example": "2023-03-05T21:48:55.000000Z"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "employer"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-03-05T21:48:55.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-03-05T21:48:55.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Retorno caso o token nao esteja registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/auth/register": {
             "post": {
                 "tags": [

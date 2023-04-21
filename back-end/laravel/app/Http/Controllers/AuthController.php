@@ -104,6 +104,36 @@ class AuthController extends Controller
         auth()->user()->currentAccessToken()->delete();
     }
 
+
+    /**
+     * @OA\GET(
+     *  tags={"Auth Controller"},
+     *  summary="Obtem os dados do usuario",
+     *  description="end-point obter os dados do usuario logado a partir do token",
+     *  path="/api/auth/user",
+     *  security={ {"bearerToken":{}} },
+     *  @OA\Response(
+     *    response=200,
+     *    description="Retorna o Token e o tipo do usuario",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="number", example=1),
+     *       @OA\Property(property="name", type="string", example="Empresa Tal"),
+     *       @OA\Property(property="email", type="string", example="fulano-de-tal@exemplo.com"),
+     *       @OA\Property(property="email_verified_at", type="string", example="2023-03-05T21:48:55.000000Z"),
+     *       @OA\Property(property="type", type="string", example="employer"),
+     *       @OA\Property(property="created_at", type="string", example="2023-03-05T21:48:55.000000Z"),
+     *       @OA\Property(property="updated_at", type="string", example="2023-03-05T21:48:55.000000Z"),
+     *    )
+     *  ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Retorno caso o token nao esteja registrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthenticated."),
+     *    )
+     *  ),
+     * )
+     */
     public function user()
     {
         return auth()->user();
