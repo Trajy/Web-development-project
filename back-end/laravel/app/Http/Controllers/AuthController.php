@@ -6,6 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+/**
+ * @OA\Info(
+ *   title="Employment Api Documentacao",
+ *   version="1.0.0",
+ * )
+ * @OA\SecurityScheme(
+ *  type="http",
+ *  description="Baerer token obtido na autenticação",
+ *  name="Authorization",
+ *  in="header",
+ *  scheme="bearer",
+ *  bearerFormat="JWT",
+ *  securityScheme="bearerToken"
+ * )
+ */
 class AuthController extends Controller
 {
 
@@ -19,6 +34,37 @@ class AuthController extends Controller
         return $user;
     }
 
+
+    /**
+     * @OA\POST(
+     *  tags={"Auth Controller"},
+     *  summary="Realizar o login",
+     *  description="end-point obter um token de autorizacao para o usuario",
+     *  path="/api/auth/login",
+     *  @OA\RequestBody(
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              required={"email","password"},
+     *              @OA\Property(property="email", type="string", example="teste_usuario@example.org"),
+     *              @OA\Property(property="password", type="string", example="1234"),
+     *          )
+     *      ),
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Retorna o Token e o tipo do usuario",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="token", type="string", example="3|4pHV2Eb6zqJs3z6MWqPKmKoF7EUONp4MuJCfJYAt"),
+     *       @OA\Property(property="type", type="string", example="employer"),
+     *    )
+     *  ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Retorna Invalid Credentials",
+     *  ),
+     * )
+     */
     public function login(Request $request) {
         $user = User::where('email', $request->email)->where('password', $request->password)->first();
         if(!$user) {
@@ -28,6 +74,31 @@ class AuthController extends Controller
         return response()->json(['token' => $token->plainTextToken, 'client_type' => $user->type]);
     }
 
+    /**
+     * @OA\DELETE(
+     *  tags={"Auth Controller"},
+     *  summary="Realizar o logout",
+     *  description="end-point para revogar um token de autorizacao",
+     *  path="/api/auth/logout",
+     *  security={ {"bearerToken":{}} },
+     *   @OA\Parameter(
+     *         name="Authorization",
+     *         in="header",
+     *         description="Baerer token que sera revogado",
+     *     ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Retorna o Token e o tipo do usuario",
+     *  ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Retorno caso o token nao esteja registrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthenticated."),
+     *    )
+     *  ),
+     * )
+     */
     public function logout()
     {
         auth()->user()->currentAccessToken()->delete();
