@@ -37,7 +37,7 @@ class AuthController extends Controller
 
     /**
      * @OA\POST(
-     *  tags={"Auth Controller"},
+     *  tags={"AuthController"},
      *  summary="Realizar o login",
      *  description="end-point obter um token de autorizacao para o usuario",
      *  path="/api/auth/login",
@@ -76,7 +76,7 @@ class AuthController extends Controller
 
     /**
      * @OA\DELETE(
-     *  tags={"Auth Controller"},
+     *  tags={"AuthController"},
      *  summary="Realizar o logout",
      *  description="end-point para revogar um token de autorizacao",
      *  path="/api/auth/logout",
@@ -107,7 +107,7 @@ class AuthController extends Controller
 
     /**
      * @OA\GET(
-     *  tags={"Auth Controller"},
+     *  tags={"AuthController"},
      *  summary="Obtem os dados do usuario",
      *  description="end-point obter os dados do usuario logado a partir do token",
      *  path="/api/auth/user",

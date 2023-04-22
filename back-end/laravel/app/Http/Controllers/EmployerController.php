@@ -35,7 +35,7 @@ class EmployerController extends AuthController
 
     /**
      * @OA\POST(
-     *  tags={"Auth Controller"},
+     *  tags={"AuthController"},
      *  summary="Registrar um novo empregador",
      *  description="end-point utilizado para registrar um novo empregador",
      *  path="/api/auth/employer/register",
