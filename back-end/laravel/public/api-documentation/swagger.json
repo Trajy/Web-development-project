@@ -8,7 +8,7 @@
         "/api/auth/login": {
             "post": {
                 "tags": [
-                    "Auth Controller"
+                    "AuthController"
                 ],
                 "summary": "Realizar o login",
                 "description": "end-point obter um token de autorizacao para o usuario",
@@ -66,7 +66,7 @@
         "/api/auth/logout": {
             "delete": {
                 "tags": [
-                    "Auth Controller"
+                    "AuthController"
                 ],
                 "summary": "Realizar o logout",
                 "description": "end-point para revogar um token de autorizacao",
@@ -109,7 +109,7 @@
         "/api/auth/user": {
             "get": {
                 "tags": [
-                    "Auth Controller"
+                    "AuthController"
                 ],
                 "summary": "Obtem os dados do usuario",
                 "description": "end-point obter os dados do usuario logado a partir do token",
@@ -182,7 +182,7 @@
         "/api/auth/register": {
             "post": {
                 "tags": [
-                    "Auth Controller"
+                    "AuthController"
                 ],
                 "summary": "Registrar um novo colaborador",
                 "description": "end-point utilizado para registrar um novo colaborador",
@@ -235,7 +235,7 @@
         "/api/auth/employer/register": {
             "post": {
                 "tags": [
-                    "Auth Controller"
+                    "AuthController"
                 ],
                 "summary": "Registrar um novo empregador",
                 "description": "end-point utilizado para registrar um novo empregador",
@@ -287,6 +287,353 @@
                         "description": "Interna Server Error"
                     }
                 }
+            }
+        },
+        "/api/employments": {
+            "get": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Obter todas as vagas cadastradas no sistema (Acesso publico para a area nao logada)",
+                "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
+                "operationId": "2b60611ddb8fc2fef3e5c1fabe4847ea",
+                "responses": {
+                    "200": {
+                        "description": "Retorna um array de objetos com os dados referentes as vagas (Acesso publico)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "office": {
+                                                "type": "string",
+                                                "example": "Gerente"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Descricao da vaga como atribuicoes e responsabilidades"
+                                            },
+                                            "salary": {
+                                                "type": "number",
+                                                "example": 6000
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2023-03-05T21:48:55.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2023-03-05T21:48:55.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Erro"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Registrar uma nova vaga",
+                "description": "end-point utilizado para registrar uma nova vaga (apenas empregadores)",
+                "operationId": "f2becf41be84d1bf31f1c203360dcea7",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "office": {
+                                        "type": "string",
+                                        "example": "Professor"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descricao da vaga"
+                                    },
+                                    "salary": {
+                                        "type": "number",
+                                        "example": 1800.56
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content",
+                        "headers": {
+                            "Location": {
+                                "description": "url para acessar a vaga",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo colaborador/employee)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/employments/me": {
+            "get": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Obter as vagas do colaborador ou empregador com base no token",
+                "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
+                "operationId": "a9e26990b7266c3dec8c3f3ea1b785e1",
+                "responses": {
+                    "200": {
+                        "description": "Retorna um array de objetos com os dados referentes as vagas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "office": {
+                                                "type": "string",
+                                                "example": "Gerente"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Descricao da vaga como atribuicoes e responsabilidades"
+                                            },
+                                            "salary": {
+                                                "type": "number",
+                                                "example": 6000
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2023-03-05T21:48:55.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2023-03-05T21:48:55.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Retorno caso o token nao esteja registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/employments/{id}": {
+            "get": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Obter as vaga especifica com base no id",
+                "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
+                "operationId": "ae2858fdcab329099c0d26f635c5d4ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da vaga cadastrada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os dados de uma vaga especifica",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "office": {
+                                            "type": "string",
+                                            "example": "Gerente"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "example": "Descricao da vaga como atribuicoes e responsabilidades"
+                                        },
+                                        "salary": {
+                                            "type": "number",
+                                            "example": 6000
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "example": "2023-03-05T21:48:55.000000Z"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "example": "2023-03-05T21:48:55.000000Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Alterar uma vaga",
+                "description": "end-point utilizado para alterar os dados da vaga (apenas empregadores)",
+                "operationId": "5f0586004f60ee73dcd146d24624da3f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da vaga cadastrada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "office": {
+                                        "type": "string",
+                                        "example": "Professor"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Descricao da vaga"
+                                    },
+                                    "salary": {
+                                        "type": "number",
+                                        "example": 1800.56
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo colaborador/employee ou tentar alterar uma vaga que nao pertence a este usuario)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Deletar uma vaga",
+                "description": "end-point utilizado para deletar os dados da vaga (apenas empregadores)",
+                "operationId": "cf4a81b00d973e04f8efb18fbe9b4fb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id da vaga",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo colaborador/employee ou tentar deletar uma vaga que nao pertence a este usuario)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         }
     },
