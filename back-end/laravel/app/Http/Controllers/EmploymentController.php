@@ -261,7 +261,7 @@ class EmploymentController extends Controller
             return response(null, 204);
         }
         else {
-            return response(null, 403);
+            return abort(403, 'Unauthorized');
         }
     }
 }
