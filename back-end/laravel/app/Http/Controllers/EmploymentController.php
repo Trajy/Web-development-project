@@ -86,7 +86,7 @@ class EmploymentController extends Controller
     /**
      * @OA\GET(
      *  tags={"EmploymentController"},
-     *  summary="Obter as vaga especifica com base no id",
+     *  summary="Obter vaga especifica com base no id",
      *  description="end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
      *  path="/api/employments/{id}",
      *  @OA\Parameter(
@@ -219,7 +219,7 @@ class EmploymentController extends Controller
             return response(null, 204);
         }
         else {
-            return response(null, 403);
+            return abort(403, 'Unauthorized');
         }
     }
 
