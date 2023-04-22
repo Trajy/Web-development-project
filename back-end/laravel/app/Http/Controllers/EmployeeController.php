@@ -10,19 +10,80 @@ use App\Models\Employee;
 class EmployeeController extends AuthController
 {
 
+    /**
+     * @OA\GET(
+     *  tags={"EmployeeController"},
+     *  summary="Obter dados de todos os colaboradores",
+     *  description="end-point para obter os dados de todos os colaboradores",
+     *  path="/api/employees",
+     *  @OA\Response(
+     *    response=200,
+     *    description="Retorna uma lista com objetos contendo os dados dos colaboradores",
+     *    @OA\JsonContent(
+     *       type="array",
+     *       @OA\Items(
+     *           @OA\Property(property="id", type="number", example=1),
+     *           @OA\Property(property="name", type="string", example="Fulano"),
+     *           @OA\Property(property="surname", type="string", example="De Tal"),
+     *           @OA\Property(property="salary", type="string", example=12334455690),
+     *           @OA\Property(property="user_id", type="number", example="5"),
+     *       ),
+     *    )
+     *  ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Not found",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Internal Server Error",
+     *  ),
+     * )
+     */
     public function index()
     {
         return Employee::all();
     }
 
+    /**
+     * @OA\GET(
+     *  tags={"EmployeeController"},
+     *  summary="Obter dados de um colaborador especifico com base no id",
+     *  description="end-point para obter os dados referentes a um determinado colaborador",
+     *  path="/api/employees/{id}",
+     *  @OA\Parameter(
+     *      name="id",
+     *      description="id do colaborador",
+     *      in = "path",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Retorna os dados do colaborador",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="number", example=1),
+     *       @OA\Property(property="name", type="string", example="Fulano"),
+     *       @OA\Property(property="surname", type="string", example="De Tal"),
+     *       @OA\Property(property="salary", type="string", example=12334455690),
+     *       @OA\Property(property="user_id", type="number", example="5"),
+     *    )
+     *  ),
+     * @OA\Response(
+     *    response=404,
+     *    description="Not found",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Internal Server Error",
+     *  ),
+     * )
+     */
     public function show(string $id)
     {
         return Employee::findOrFail($id);
-    }
-
-    public function store(Request $request)
-    {
-        Employee::create($request);
     }
 
     public function update(Request $request, string $id)
@@ -30,9 +91,47 @@ class EmployeeController extends AuthController
         Employee::update($request, $id);
     }
 
+    /**
+     * @OA\DELETE(
+     *  tags={"EmployeeController"},
+     *  summary="Deletar conta do colaborador",
+     *  description="end-point utilizado para deletar a propria conta colaborador (Apenas a conta proprietaria do token de autorizacao pode ser deletada).",
+     *  path="/api/employees/{id}",
+     *  security={ {"bearerToken":{}} },
+     *  @OA\Parameter(
+     *      name="id",
+     *      description="id do colaborador",
+     *      in = "path",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
+     *  @OA\Response(
+     *    response=204,
+     *    description="No Content",
+     *  ),
+     * @OA\Response(
+     *    response=403,
+     *    description="Forbiden (Ao tentar apagar uma conta que nao seja a propria)",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Interna Server Error",
+     *  ),
+     * )
+     */
     public function destroy(string $id)
     {
-        Employee::delete($id);
+        $user = auth()->user();
+        $employee = Employee::findOrFail($id);
+        if($user->id == $employee->user_id) {
+            $employee->delete();
+            return response(null, 204);
+        }
+        else {
+            return abort(403, 'Unauthorized');
+        }
     }
 
     /**
