@@ -8,7 +8,7 @@ use App\Models\User;
 
 /**
  * @OA\Info(
- *   title="Employment Api Documentacao",
+ *   title="Employment Api Documentation",
  *   version="1.0.0",
  * )
  * @OA\SecurityScheme(
