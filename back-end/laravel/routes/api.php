@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
@@ -18,10 +17,14 @@ use App\Http\Controllers\EmploymentController;
 |
 */
 
-Route::resource('employments', EmploymentController::class)->only('index');
-Route::middleware(['auth:sanctum', 'ability:employer'])->group(function() {
-    Route::resource('employments', EmploymentController::class)->except('index');
+Route::resource('employments', EmploymentController::class)->only(['index', 'show']);
+Route::middleware(['auth:sanctum', 'ability:employee,employer'])->group(function () {
+    Route::get('me', [EmploymentController::class, 'showMe']);
 });
+Route::middleware(['auth:sanctum', 'ability:employer'])->group(function () {
+    Route::resource('employments' ,EmploymentController::class)->except(['index', 'show']);
+});
+
 Route::prefix('auth')->group(function () {
     Route::post('register', [EmployeeController::class, 'register']);
     Route::post('employer/register', [EmployerController::class, 'register']);
