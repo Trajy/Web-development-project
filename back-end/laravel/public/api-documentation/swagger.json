@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Employment Api Documentacao",
-        "version": "1.0.0"
+        "title": "Employment Api Documentation",
+        "version": "1.2.0"
     },
     "paths": {
         "/api/auth/login": {
@@ -11,7 +11,7 @@
                     "AuthController"
                 ],
                 "summary": "Realizar o login",
-                "description": "end-point obter um token de autorizacao para o usuario",
+                "description": "end-point para obter um token de autorizacao para o usuario",
                 "operationId": "8dcb70df1020986038d098cc08d05dae",
                 "requestBody": {
                     "content": {
@@ -106,14 +106,14 @@
                 ]
             }
         },
-        "/api/auth/user": {
+        "/api/auth/me": {
             "get": {
                 "tags": [
                     "AuthController"
                 ],
                 "summary": "Obtem os dados do usuario",
                 "description": "end-point obter os dados do usuario logado a partir do token",
-                "operationId": "e23e5f9b32cba7953a224624a2a16544",
+                "operationId": "32013d36d82e8596d9faafa321a265f9",
                 "responses": {
                     "200": {
                         "description": "Retorna o Token e o tipo do usuario",
@@ -179,6 +179,155 @@
                 ]
             }
         },
+        "/api/employees": {
+            "get": {
+                "tags": [
+                    "EmployeeController"
+                ],
+                "summary": "Obter dados de todos os colaboradores",
+                "description": "end-point para obter os dados de todos os colaboradores",
+                "operationId": "7fc06f144c1cd7925c5c391a6609f02d",
+                "responses": {
+                    "200": {
+                        "description": "Retorna uma lista com objetos contendo os dados dos colaboradores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Fulano"
+                                            },
+                                            "surname": {
+                                                "type": "string",
+                                                "example": "De Tal"
+                                            },
+                                            "salary": {
+                                                "type": "string",
+                                                "example": 12334455690
+                                            },
+                                            "user_id": {
+                                                "type": "number",
+                                                "example": "5"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/employees/{id}": {
+            "get": {
+                "tags": [
+                    "EmployeeController"
+                ],
+                "summary": "Obter dados de um colaborador especifico com base no id",
+                "description": "end-point para obter os dados referentes a um determinado colaborador",
+                "operationId": "d53e117f7e819b6f063fc96ea910eb75",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do colaborador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os dados do colaborador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Fulano"
+                                        },
+                                        "surname": {
+                                            "type": "string",
+                                            "example": "De Tal"
+                                        },
+                                        "salary": {
+                                            "type": "string",
+                                            "example": 12334455690
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "5"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "EmployeeController"
+                ],
+                "summary": "Deletar conta do colaborador",
+                "description": "end-point utilizado para deletar a propria conta colaborador (Apenas a conta proprietaria do token de autorizacao pode ser deletada).",
+                "operationId": "4743ab328b7641983d97c047c641038f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do colaborador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar apagar uma conta que nao seja a propria)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/auth/register": {
             "post": {
                 "tags": [
@@ -230,6 +379,155 @@
                         "description": "Interna Server Error"
                     }
                 }
+            }
+        },
+        "/api/employers": {
+            "get": {
+                "tags": [
+                    "EmployerController"
+                ],
+                "summary": "Obter dados de todos os empregadores",
+                "description": "end-point para obter os dados de todos os empregadores",
+                "operationId": "f07fd5f25bb797deb33a5fe0b9d9bccd",
+                "responses": {
+                    "200": {
+                        "description": "Retorna uma lista com objetos contendo os dados dos empregadores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "cnpj": {
+                                                "type": "string",
+                                                "example": "11222333000181"
+                                            },
+                                            "bussiness_name": {
+                                                "type": "string",
+                                                "example": "Empresa Tal"
+                                            },
+                                            "fantasy_name": {
+                                                "type": "string",
+                                                "example": "Tal Empresa"
+                                            },
+                                            "user_id": {
+                                                "type": "number",
+                                                "example": "8"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/api/employers/{id}": {
+            "get": {
+                "tags": [
+                    "EmployerController"
+                ],
+                "summary": "Obter dados de um empregador especifico com base no id",
+                "description": "end-point para obter os dados referentes a um determinado empregador",
+                "operationId": "3d3971adc3dfcb59d32b0cb830847654",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do empregador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os dados do empregador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": 1
+                                        },
+                                        "cnpj": {
+                                            "type": "string",
+                                            "example": "11222333000181"
+                                        },
+                                        "bussiness_name": {
+                                            "type": "string",
+                                            "example": "Empresa Tal"
+                                        },
+                                        "fantasy_name": {
+                                            "type": "string",
+                                            "example": "Tal Empresa"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "8"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "EmployerController"
+                ],
+                "summary": "Deletar conta do empregador",
+                "description": "end-point utilizado para deletar a propria conta empregador (Apenas a conta proprietaria do token de autorizacao pode ser deletada).",
+                "operationId": "8a844b978884976ed455cfbe2b070f78",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do empregador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar apagar uma conta que nao seja a propria)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/api/auth/employer/register": {
@@ -479,7 +777,7 @@
                 "tags": [
                     "EmploymentController"
                 ],
-                "summary": "Obter as vaga especifica com base no id",
+                "summary": "Obter vaga especifica com base no id",
                 "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
                 "operationId": "ae2858fdcab329099c0d26f635c5d4ad",
                 "parameters": [
