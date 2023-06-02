@@ -8,6 +8,8 @@ use App\Models\Employer;
 class EmployerController extends AuthController
 {
 
+    private const DEFAULT_PAGINATION_LENGTH = 10;
+
     /**
      * @OA\GET(
      *  tags={"EmployerController"},
@@ -40,7 +42,7 @@ class EmployerController extends AuthController
      */
     public function index()
     {
-        return Employer::all();
+        return Employer::simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
     }
 
     /**

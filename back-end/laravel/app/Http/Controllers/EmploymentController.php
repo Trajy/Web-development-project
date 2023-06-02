@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 class EmploymentController extends Controller
 {
 
+    private const DEFAULT_PAGINATION_LENGTH = 10;
+
     /**
      * @OA\GET(
      *  tags={"EmploymentController"},
@@ -39,7 +41,7 @@ class EmploymentController extends Controller
      */
     public function index()
     {
-        return Employment::all();
+        return Employment::simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
     }
 
     /**
@@ -76,10 +78,10 @@ class EmploymentController extends Controller
     public function showMe() {
         $user = auth()->user();
         if($user->type == 'employer') {
-            return Employment::where('user_id', $user->id)->get()->all();
+            return Employment::where('user_id', $user->id)->get()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
         } else {
             $employee_id = DB::table('employees')->where('user_id', $user->id)->first()->id;
-            return DB::table('employees_employments')->where('employee_id', $employee_id)->get()->all();
+            return DB::table('employees_employments')->where('employee_id', $employee_id)->get()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
         }
     }
 
