@@ -41,7 +41,7 @@ class EmploymentController extends Controller
      */
     public function index()
     {
-        return Employment::simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
+        return Employment::filter()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
     }
 
     /**
