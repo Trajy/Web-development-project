@@ -18,6 +18,15 @@ class EmployeeController extends AuthController
      *  summary="Obter dados de todos os colaboradores",
      *  description="end-point para obter os dados de todos os colaboradores",
      *  path="/api/employees",
+     *  @OA\Parameter(
+     *      name="page",
+     *      description="pagina atual da paginacao",
+     *      in = "query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="Retorna uma lista com objetos contendo os dados dos colaboradores",

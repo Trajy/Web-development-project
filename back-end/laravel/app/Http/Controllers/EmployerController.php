@@ -16,6 +16,15 @@ class EmployerController extends AuthController
      *  summary="Obter dados de todos os empregadores",
      *  description="end-point para obter os dados de todos os empregadores",
      *  path="/api/employers",
+     *  @OA\Parameter(
+     *      name="page",
+     *      description="pagina desejada da paginacao",
+     *      in = "query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="Retorna uma lista com objetos contendo os dados dos empregadores",

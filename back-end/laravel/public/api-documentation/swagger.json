@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Employment Api Documentation",
-        "version": "1.2.0"
+        "version": "1.0.0"
     },
     "paths": {
         "/api/auth/login": {
@@ -187,6 +187,17 @@
                 "summary": "Obter dados de todos os colaboradores",
                 "description": "end-point para obter os dados de todos os colaboradores",
                 "operationId": "7fc06f144c1cd7925c5c391a6609f02d",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagina atual da paginacao",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Retorna uma lista com objetos contendo os dados dos colaboradores",
@@ -389,6 +400,17 @@
                 "summary": "Obter dados de todos os empregadores",
                 "description": "end-point para obter os dados de todos os empregadores",
                 "operationId": "f07fd5f25bb797deb33a5fe0b9d9bccd",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagina desejada da paginacao",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Retorna uma lista com objetos contendo os dados dos empregadores",
@@ -595,6 +617,17 @@
                 "summary": "Obter todas as vagas cadastradas no sistema (Acesso publico para a area nao logada)",
                 "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
                 "operationId": "2b60611ddb8fc2fef3e5c1fabe4847ea",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagina desejada da paginacao",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Retorna um array de objetos com os dados referentes as vagas (Acesso publico)",
@@ -708,6 +741,17 @@
                 "summary": "Obter as vagas do colaborador ou empregador com base no token",
                 "description": "end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
                 "operationId": "a9e26990b7266c3dec8c3f3ea1b785e1",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "pagina desejada da paginacao",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Retorna um array de objetos com os dados referentes as vagas",

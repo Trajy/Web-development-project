@@ -18,6 +18,15 @@ class EmploymentController extends Controller
      *  summary="Obter todas as vagas cadastradas no sistema (Acesso publico para a area nao logada)",
      *  description="end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
      *  path="/api/employments",
+     *  @OA\Parameter(
+     *      name="page",
+     *      description="pagina desejada da paginacao",
+     *      in = "query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="Retorna um array de objetos com os dados referentes as vagas (Acesso publico)",
@@ -51,6 +60,15 @@ class EmploymentController extends Controller
      *  description="end-point os dados referentes as vagas do colaborador ou empregador logado utilizando o token de autorizacao",
      *  path="/api/employments/me",
      *  security={ {"bearerToken":{}} },
+     *  @OA\Parameter(
+     *      name="page",
+     *      description="pagina desejada da paginacao",
+     *      in = "query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="Retorna um array de objetos com os dados referentes as vagas",
