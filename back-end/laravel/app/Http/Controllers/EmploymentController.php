@@ -27,6 +27,15 @@ class EmploymentController extends Controller
      *          type="integer"
      *      )
      *  ),
+     *  @OA\Parameter(
+     *      name="search",
+     *      description="pesquisa",
+     *      in = "query",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
      *  @OA\Response(
      *    response=200,
      *    description="Retorna um array de objetos com os dados referentes as vagas (Acesso publico)",
@@ -49,8 +58,10 @@ class EmploymentController extends Controller
      * )
      */
     public function index()
-    {
-        return Employment::filter()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
+    {   
+        return Employment::where('office', 'like', '%' . request()->query('search') . '%')
+            ->orWhere('description', 'like', '%' . request()->query('search') . '%')
+            ->filter()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH)->items();
     }
 
     /**
