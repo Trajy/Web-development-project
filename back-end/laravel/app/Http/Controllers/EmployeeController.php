@@ -20,7 +20,7 @@ class EmployeeController extends AuthController
      *  path="/api/employees",
      *  @OA\Parameter(
      *      name="page",
-     *      description="pagina atual da paginacao",
+     *      description="pagina desejada da paginacao",
      *      in = "query",
      *      required=false,
      *      @OA\Schema(
