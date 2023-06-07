@@ -47,7 +47,7 @@ Se você descobrir uma vulnerabilidade de segurança no Laravel, envie um e-mail
 O framework Laravel é um software de código aberto licenciado sob a [licença MIT](https://opensource.org/licenses/MIT).
 
 #
-# Preparando a aplicacao
+# Preparando a aplicação
 
 * Certifique-se que o banco de dados esteja em execução
 
@@ -80,6 +80,6 @@ O framework Laravel é um software de código aberto licenciado sob a [licença 
     php artisan serve
     ```
 
-## Documentacao dos end-points
- A documentacao dos end-points foi desenvolvida utilizando o [swagger](https://swagger.io/specification) pode ser acessada localmente em http://127.0.0.1/api-documentation/index.html
+## Documentação dos end-points
+ A documentação dos end-points foi desenvolvida utilizando o [swagger](https://swagger.io/specification) pode ser acessada localmente em http://127.0.0.1/api-documentation/index.html
 
