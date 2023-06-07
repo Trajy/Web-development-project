@@ -577,7 +577,7 @@
                                         "type": "string",
                                         "example": "Empresa Tal"
                                     },
-                                    "fansasy_name": {
+                                    "fantasy_name": {
                                         "type": "string",
                                         "example": "Tal Empresa"
                                     },
@@ -625,6 +625,15 @@
                         "required": false,
                         "schema": {
                             "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "pesquisa",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 ],

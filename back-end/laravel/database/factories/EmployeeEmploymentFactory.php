@@ -20,14 +20,14 @@ class EmployeeEmploymentFactory extends Factory
     {
         return [
             'employee_id' => Employee::inRandomOrder()->first()->id,
-            'employer_id' => Employer::inRandomOrder()->first()->id
+            'employment_id' => Employer::inRandomOrder()->first()->id
         ];
     }
 
     public static function staticDefinition() {
         return [
             'employee_id' => Employee::inRandomOrder()->first()->id,
-            'employer_id' => Employer::inRandomOrder()->first()->id
+            'employment_id' => Employer::inRandomOrder()->first()->id
         ];
     }
 }

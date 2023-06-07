@@ -156,7 +156,7 @@ class EmployerController extends AuthController
      *              required={"email","password"},
      *              @OA\Property(property="cnpj", type="string", example="11222333000188"),
      *              @OA\Property(property="bussiness_name", type="string", example="Empresa Tal"),
-     *              @OA\Property(property="fansasy_name", type="string", example="Tal Empresa"),
+     *              @OA\Property(property="fantasy_name", type="string", example="Tal Empresa"),
      *              @OA\Property(property="name", type="string", example="Tal Empresa"),
      *              @OA\Property(property="email", type="string", example="teste_usuario@example.org"),
      *              @OA\Property(property="password", type="string", example="1234"),
