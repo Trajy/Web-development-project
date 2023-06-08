@@ -61,7 +61,7 @@ class EmploymentController extends Controller
     {
         return Employment::where('office', 'like', '%' . request()->query('search') . '%')
             ->orWhere('description', 'like', '%' . request()->query('search') . '%')
-            ->filter()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH);
+            ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
     }
 
     /**
@@ -107,10 +107,10 @@ class EmploymentController extends Controller
     public function showMe() {
         $user = auth()->user();
         if($user->type == 'employer') {
-            return Employment::where('user_id', $user->id)->get()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH);
+            return Employment::where('user_id', $user->id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         } else {
             $employee_id = DB::table('employees')->where('user_id', $user->id)->first()->id;
-            return DB::table('employees_employments')->where('employee_id', $employee_id)->get()->simplePaginate(self::DEFAULT_PAGINATION_LENGTH);
+            return DB::table('employees_employments')->where('employee_id', $employee_id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         }
     }
 
