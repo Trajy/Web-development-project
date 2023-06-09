@@ -63,12 +63,10 @@ class EmploymentController extends Controller
         $employments = Employment::where('office', 'like', '%' . request()->query('search') . '%')
         ->orWhere('description', 'like', '%' . request()->query('search') . '%')
         ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
-
         foreach($employments as $employment)
         {
             $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
         }
-
         return $employments;
     }
 
@@ -112,14 +110,23 @@ class EmploymentController extends Controller
      *  ),
      * )
      */
-    public function showMe() {
+    public function showMe()
+    {
         $user = auth()->user();
-        if($user->type == 'employer') {
-            return Employment::where('user_id', $user->id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
-        } else {
-            $employee_id = DB::table('employees')->where('user_id', $user->id)->first()->id;
-            return DB::table('employees_employments')->where('employee_id', $employee_id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+        if($user->type == 'employer')
+        {
+            $employments = Employment::where('user_id', $user->id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         }
+        else
+        {
+            $employee_id = DB::table('employees')->where('user_id', $user->id)->first()->id;
+            $employments = DB::table('employees_employments')->where('employee_id', $employee_id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+        }
+        foreach($employments as $employment)
+        {
+            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+        }
+        return $employments;
     }
 
     /**
@@ -161,7 +168,9 @@ class EmploymentController extends Controller
      */
     public function show(string $id)
     {
-        return Employment::findOrFail($id);
+        $employment = Employment::findOrFail($id);
+        $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+        return $employment;
     }
 
     /**
