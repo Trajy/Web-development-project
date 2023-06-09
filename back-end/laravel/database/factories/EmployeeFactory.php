@@ -24,7 +24,7 @@ class EmployeeFactory extends Factory
             'name' => fake()->firstName(),
             'surname' => fake()->lastName(),
             'cpf' => fake()->cpf($this::GENERATE_WITH_MASK),
-            'user_id' => User::factory()->definitionWithType('employer')->create()->id
+            'user_id' => User::factory()->definitionWithType('employee')->create()->id
         ];
     }
 }
