@@ -61,8 +61,8 @@ class EmploymentController extends Controller
     public function index()
     {
         $employments = Employment::where('office', 'like', '%' . request()->query('search') . '%')
-        ->orWhere('description', 'like', '%' . request()->query('search') . '%')
-        ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+            ->orWhere('description', 'like', '%' . request()->query('search') . '%')
+            ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         foreach($employments as $employment)
         {
             $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->firstOrFail()->fantasy_name;
