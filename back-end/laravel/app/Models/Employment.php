@@ -13,7 +13,8 @@ class Employment extends Model
     use FilterQueryString;
 
     protected $fillable = [
-        'office', 'description', 'salary', 'user_id'
+        'office', 'description', 'salary',
+        'state', 'city', 'country', 'user_id'
     ];
 
     protected $filters = [

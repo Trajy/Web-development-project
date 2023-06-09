@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('office');
             $table->string('description');
             $table->decimal('salary', 8, 2);
+            $table->string('state');
+            $table->string('city');
+            $table->string('country');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

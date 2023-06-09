@@ -25,6 +25,9 @@ class EmploymentFactory extends Factory
         return [
             'office' => fake()->jobTitle(),
             'description' => fake()->text(),
+            'state' => fake()->state(),
+            'city' => fake()->city(),
+            'country' => fake()->country(),
             'salary' => fake()->
                 randomFloat($this::MAX_DECIMAL_PLACES, $this:: MIN_SALARY_VALUE, $this::MAX_SALARY_VALUE),
             'user_id' => User::inRandomOrder()->where('type', 'employer')->first()->id
