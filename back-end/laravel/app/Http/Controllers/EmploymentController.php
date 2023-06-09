@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Models\Employment;
 use Illuminate\Support\Facades\DB;
@@ -59,9 +60,16 @@ class EmploymentController extends Controller
      */
     public function index()
     {
-        return Employment::where('office', 'like', '%' . request()->query('search') . '%')
-            ->orWhere('description', 'like', '%' . request()->query('search') . '%')
-            ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+        $employments = Employment::where('office', 'like', '%' . request()->query('search') . '%')
+        ->orWhere('description', 'like', '%' . request()->query('search') . '%')
+        ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+
+        foreach($employments as $employment)
+        {
+            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+        }
+
+        return $employments;
     }
 
     /**
