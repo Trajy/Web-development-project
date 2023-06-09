@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Employee;
-use App\Models\Employer;
+use App\Models\Employment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,14 +20,14 @@ class EmployeeEmploymentFactory extends Factory
     {
         return [
             'employee_id' => Employee::inRandomOrder()->first()->id,
-            'employment_id' => Employer::inRandomOrder()->first()->id
+            'employment_id' => Employment::inRandomOrder()->first()->id
         ];
     }
 
     public static function staticDefinition() {
         return [
             'employee_id' => Employee::inRandomOrder()->first()->id,
-            'employment_id' => Employer::inRandomOrder()->first()->id
+            'employment_id' => Employment::inRandomOrder()->first()->id
         ];
     }
 }
