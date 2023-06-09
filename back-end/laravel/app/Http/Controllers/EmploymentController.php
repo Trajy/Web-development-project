@@ -65,7 +65,7 @@ class EmploymentController extends Controller
         ->filter()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         foreach($employments as $employment)
         {
-            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->firstOrFail()->fantasy_name;
         }
         return $employments;
     }
@@ -120,11 +120,12 @@ class EmploymentController extends Controller
         else
         {
             $employee_id = DB::table('employees')->where('user_id', $user->id)->first()->id;
-            $employments = DB::table('employees_employments')->where('employee_id', $employee_id)->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
+            $employments = DB::table('employees_employments')->where('employee_id', $employee_id)
+                ->get()->paginate(self::DEFAULT_PAGINATION_LENGTH);
         }
         foreach($employments as $employment)
         {
-            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+            $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->firstOrFail()->fantasy_name;
         }
         return $employments;
     }
@@ -169,7 +170,7 @@ class EmploymentController extends Controller
     public function show(string $id)
     {
         $employment = Employment::findOrFail($id);
-        $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->first()->fantasy_name;
+        $employment['fantasy_name'] = Employer::where('user_id', $employment->user_id)->firstOrFail()->fantasy_name;
         return $employment;
     }
 
