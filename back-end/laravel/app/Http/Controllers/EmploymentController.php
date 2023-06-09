@@ -263,7 +263,8 @@ class EmploymentController extends Controller
     public function update(Request $request, string $id)
     {
         $employment = EmploymentController::show($id);
-        if(auth()->user()->id == $employment->user_id) {
+        if(auth()->user()->id == $employment->user_id)
+        {
             EmploymentController::show($id)->update($request->all());
             return response(null, 204);
         }
@@ -305,7 +306,8 @@ class EmploymentController extends Controller
     public function destroy(string $id)
     {
         $employment = EmploymentController::show($id);
-        if(auth()->user()->id == $employment->user_id) {
+        if(auth()->user()->id == $employment->user_id)
+        {
             EmploymentController::show($id)->delete();
             return response(null, 204);
         }
