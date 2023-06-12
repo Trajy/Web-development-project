@@ -191,7 +191,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "pagina atual da paginacao",
+                        "description": "pagina desejada da paginacao",
                         "required": false,
                         "schema": {
                             "type": "integer"
@@ -709,6 +709,18 @@
                                     "salary": {
                                         "type": "number",
                                         "example": 1800.56
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Brasil"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "Rio de Janeiro"
+                                    },
+                                    "city": {
+                                        "type": "city",
+                                        "example": "Rio de Janeiro"
                                     }
                                 },
                                 "type": "object"

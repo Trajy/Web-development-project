@@ -189,6 +189,9 @@ class EmploymentController extends Controller
      *              @OA\Property(property="office", type="string", example="Professor"),
      *              @OA\Property(property="description", type="string", example="Descricao da vaga"),
      *              @OA\Property(property="salary", type="number", example=1800.56),
+     *              @OA\Property(property="country", type="string", example="Brasil"),
+     *              @OA\Property(property="state", type="string", example="Rio de Janeiro"),
+     *              @OA\Property(property="city", type="city", example="Rio de Janeiro"),
      *          )
      *      ),
      *  ),
