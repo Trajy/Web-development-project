@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @OA\Info(
@@ -136,7 +137,17 @@ class AuthController extends Controller
      */
     public function user()
     {
-        return auth()->user();
+        $user = auth()->user();
+        $employerOrEmployee = null;
+        if($user->type == 'employer')
+        {
+            $employerOrEmployee = DB::table('employers')->where('user_id', $user->id)->first();
+        }
+        else
+        {
+            $employerOrEmployee = DB::table('employees')->where('user_id', $user->id)->first();
+        }
+        return [$employerOrEmployee, $user];
     }
 
 }

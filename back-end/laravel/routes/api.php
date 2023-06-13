@@ -22,7 +22,11 @@ Route::middleware(['auth:sanctum', 'ability:employee,employer'])->group(function
     Route::get('me', [EmploymentController::class, 'showMe']);
 });
 Route::middleware(['auth:sanctum', 'ability:employer'])->group(function () {
-    Route::resource('employments' ,EmploymentController::class)->except(['index', 'show']);
+    Route::resource('employments', EmploymentController::class)->except(['index', 'show']);
+});
+
+Route::middleware(['auth:sanctum', 'ability:employee'])->group(function () {
+    Route::resource('employees', EmployeeController::class);
 });
 
 Route::prefix('auth')->group(function () {

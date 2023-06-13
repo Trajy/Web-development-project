@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('cpf');
+            $table->string('nacionality')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('number')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
