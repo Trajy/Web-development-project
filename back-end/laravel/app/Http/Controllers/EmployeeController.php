@@ -102,16 +102,32 @@ class EmployeeController extends AuthController
      *  tags={"EmployeeController"},
      *  summary="Alterar dados do colaborador",
      *  description="end-point utilizado para alterar os dados de um colaborador",
-     *  path="/api/employee",
+     *  path="/api/employee/{id}",
      *  security={ {"bearerToken":{}} },
+     *  @OA\Parameter(
+     *      name="id",
+     *      description="id do colaborador",
+     *      in = "path",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
      *  @OA\RequestBody(
      *      @OA\MediaType(
      *          mediaType="application/json",
      *          @OA\Schema(
-     *              required={"email","password"},
-     *              @OA\Property(property="office", type="string", example="Professor"),
-     *              @OA\Property(property="description", type="string", example="Descricao da vaga"),
-     *              @OA\Property(property="salary", type="number", example=1800.56),
+     *              required={"name","surname", "cpf"},
+     *              @OA\Property(property="name", type="string", example="Carlos"),
+     *              @OA\Property(property="surname", type="string", example="da Silva"),
+     *              @OA\Property(property="cpf", type="string", example="146276523730"),
+     *              @OA\Property(property="nacionality", type="string", example="Brasileira"),
+     *              @OA\Property(property="state", type="string", example="Rio de Janeiro"),
+     *              @OA\Property(property="city", type="string", example="Copacabana"),
+     *              @OA\Property(property="address", type="string", example="Rua Explendor"),
+     *              @OA\Property(property="number", type="string", example="132"),
+     *              @OA\Property(property="neighborhood", type="string", example="Sao Dias"),
+     *              @OA\Property(property="phone", type="string", example="11934215738"),
      *          )
      *      ),
      *  ),
@@ -121,7 +137,7 @@ class EmployeeController extends AuthController
      *  ),
      * @OA\Response(
      *    response=403,
-     *    description="Forbiden (Ao tentar utilizar um token do tipo colaborador/employee ou tentar alterar uma vaga que nao pertence a este usuario)",
+     *    description="Forbiden (Ao tentar utilizar um token do tipo empregador/employer ou tentar alterar dados nao pertencentes a este usuario)",
      *  ),
      * @OA\Response(
      *    response=500,
@@ -137,13 +153,13 @@ class EmployeeController extends AuthController
            $employee->update($request->only(
                     'name', 'surname', 'cpf',
                     'nacionality', 'cep', 'number', 'state', 'city',
-                    'address', 'neighborhood', 'number', 'phone'
+                    'address', 'neighborhood', 'phone'
                 )
             );
             return response(null, 204);
         }
         else {
-            return  abort(403, 'Unauthorized');
+            return abort(403, 'Unauthorized');
         }
     }
 
