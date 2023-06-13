@@ -17,6 +17,14 @@ return new class extends Migration
             $table->string('cnpj')->unique();
             $table->string('bussiness_name');
             $table->string('fantasy_name');
+            $table->string('country')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('neighborhood')->nullable();
+            $table->string('number')->nullable();
+            $table->string('phone')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }

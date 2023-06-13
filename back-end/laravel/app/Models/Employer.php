@@ -12,7 +12,9 @@ class Employer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cnpj', 'bussiness_name', 'fantasy_name', 'user_id'
+        'cnpj', 'bussiness_name', 'fantasy_name', 'user_id',
+        'country', 'cep', 'state', 'city','address',
+        'neighborhood', 'number', 'phone'
     ];
 
     public function user()

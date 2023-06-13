@@ -29,6 +29,10 @@ Route::middleware(['auth:sanctum', 'ability:employee'])->group(function () {
     Route::resource('employees', EmployeeController::class);
 });
 
+Route::middleware(['auth:sanctum', 'ability:employer'])->group(function () {
+    Route::resource('employers', EmployerController::class);
+});
+
 Route::prefix('auth')->group(function () {
     Route::post('register', [EmployeeController::class, 'register']);
     Route::post('employer/register', [EmployerController::class, 'register']);

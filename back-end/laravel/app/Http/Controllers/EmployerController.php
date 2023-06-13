@@ -95,9 +95,70 @@ class EmployerController extends AuthController
         return Employer::findOrFail($id);
     }
 
+    /**
+     * @OA\PUT(
+     *  tags={"EmployeeController"},
+     *  summary="Alterar dados do empregador",
+     *  description="end-point utilizado para alterar os dados de um empregador",
+     *  path="/api/employer/{id}",
+     *  security={ {"bearerToken":{}} },
+     *  @OA\Parameter(
+     *      name="id",
+     *      description="id do empregador",
+     *      in = "path",
+     *      required=true,
+     *      @OA\Schema(
+     *          type="integer"
+     *      )
+     *  ),
+     *  @OA\RequestBody(
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              required={"name","surname", "cnpj"},
+     *              @OA\Property(property="bussiness_name", type="string", example="Arcor Tintas Ltda."),
+     *              @OA\Property(property="fantasy_name", type="string", example="Poly Still"),
+     *              @OA\Property(property="cnpj", type="string", example="14627652373023"),
+     *              @OA\Property(property="pais", type="string", example="Brasil"),
+     *              @OA\Property(property="state", type="string", example="Rio de Janeiro"),
+     *              @OA\Property(property="city", type="string", example="Copacabana"),
+     *              @OA\Property(property="address", type="string", example="Rua Explendor"),
+     *              @OA\Property(property="number", type="string", example="132"),
+     *              @OA\Property(property="neighborhood", type="string", example="Sao Dias"),
+     *              @OA\Property(property="phone", type="string", example="11934215738"),
+     *          )
+     *      ),
+     *  ),
+     *  @OA\Response(
+     *    response=204,
+     *    description="No Content",
+     *  ),
+     * @OA\Response(
+     *    response=403,
+     *    description="Forbiden (Ao tentar utilizar um token do tipo empregador/employer ou tentar alterar dados nao pertencentes a este usuario)",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Interna Server Error",
+     *  ),
+     * )
+     */
     public function update(Request $request, string $id)
     {
-        Employer::update($request, $id);
+        $employer = self::show($id);
+        if(auth()->user()->id == $employer->user_id)
+        {
+           $employer->update($request->only(
+                'cnpj', 'bussiness_name', 'fantasy_name', 'user_id',
+                'country', 'cep', 'state', 'city','address',
+                'neighborhood', 'number', 'phone'
+                )
+            );
+            return response(null, 204);
+        }
+        else {
+            return abort(403, 'Unauthorized');
+        }
     }
 
     /**
