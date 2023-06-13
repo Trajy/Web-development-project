@@ -97,9 +97,54 @@ class EmployeeController extends AuthController
         return Employee::findOrFail($id);
     }
 
+    /**
+     * @OA\PUT(
+     *  tags={"EmployeeController"},
+     *  summary="Alterar dados do colaborador",
+     *  description="end-point utilizado para alterar os dados de um colaborador",
+     *  path="/api/employee",
+     *  security={ {"bearerToken":{}} },
+     *  @OA\RequestBody(
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              required={"email","password"},
+     *              @OA\Property(property="office", type="string", example="Professor"),
+     *              @OA\Property(property="description", type="string", example="Descricao da vaga"),
+     *              @OA\Property(property="salary", type="number", example=1800.56),
+     *          )
+     *      ),
+     *  ),
+     *  @OA\Response(
+     *    response=204,
+     *    description="No Content",
+     *  ),
+     * @OA\Response(
+     *    response=403,
+     *    description="Forbiden (Ao tentar utilizar um token do tipo colaborador/employee ou tentar alterar uma vaga que nao pertence a este usuario)",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Interna Server Error",
+     *  ),
+     * )
+     */
     public function update(Request $request, string $id)
     {
-        Employee::update($request, $id);
+        $employee = self::show($id);
+        if(auth()->user()->id == $employee->user_id)
+        {
+           $employee->update($request->only(
+                    'name', 'surname', 'cpf',
+                    'nacionality', 'cep', 'number', 'state', 'city',
+                    'address', 'neighborhood', 'number', 'phone'
+                )
+            );
+            return response(null, 204);
+        }
+        else {
+            return 'cai no else';
+        }
     }
 
     /**
