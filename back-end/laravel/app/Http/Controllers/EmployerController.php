@@ -97,7 +97,7 @@ class EmployerController extends AuthController
 
     /**
      * @OA\PUT(
-     *  tags={"EmployeeController"},
+     *  tags={"EmployerController"},
      *  summary="Alterar dados do empregador",
      *  description="end-point utilizado para alterar os dados de um empregador",
      *  path="/api/employer/{id}",
