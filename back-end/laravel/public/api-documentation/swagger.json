@@ -339,6 +339,99 @@
                 ]
             }
         },
+        "/api/employee/{id}": {
+            "put": {
+                "tags": [
+                    "EmployeeController"
+                ],
+                "summary": "Alterar dados do colaborador",
+                "description": "end-point utilizado para alterar os dados de um colaborador",
+                "operationId": "b1f58be54bff0320d2f19085bf535278",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do colaborador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "cpf"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "da Silva"
+                                    },
+                                    "cpf": {
+                                        "type": "string",
+                                        "example": "146276523730"
+                                    },
+                                    "nacionality": {
+                                        "type": "string",
+                                        "example": "Brasileira"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "Rio de Janeiro"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Copacabana"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Rua Explendor"
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "132"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Sao Dias"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "11934215738"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo empregador/employer ou tentar alterar dados nao pertencentes a este usuario)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/auth/register": {
             "post": {
                 "tags": [
@@ -540,6 +633,99 @@
                     },
                     "403": {
                         "description": "Forbiden (Ao tentar apagar uma conta que nao seja a propria)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/employer/{id}": {
+            "put": {
+                "tags": [
+                    "EmployeeController"
+                ],
+                "summary": "Alterar dados do empregador",
+                "description": "end-point utilizado para alterar os dados de um empregador",
+                "operationId": "037ed43d7f83e7456e15ac8244ac4ad9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id do empregador",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "surname",
+                                    "cnpj"
+                                ],
+                                "properties": {
+                                    "bussiness_name": {
+                                        "type": "string",
+                                        "example": "Arcor Tintas Ltda."
+                                    },
+                                    "fantasy_name": {
+                                        "type": "string",
+                                        "example": "Poly Still"
+                                    },
+                                    "cnpj": {
+                                        "type": "string",
+                                        "example": "14627652373023"
+                                    },
+                                    "pais": {
+                                        "type": "string",
+                                        "example": "Brasil"
+                                    },
+                                    "state": {
+                                        "type": "string",
+                                        "example": "Rio de Janeiro"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Copacabana"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Rua Explendor"
+                                    },
+                                    "number": {
+                                        "type": "string",
+                                        "example": "132"
+                                    },
+                                    "neighborhood": {
+                                        "type": "string",
+                                        "example": "Sao Dias"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "11934215738"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo empregador/employer ou tentar alterar dados nao pertencentes a este usuario)"
                     },
                     "500": {
                         "description": "Interna Server Error"
