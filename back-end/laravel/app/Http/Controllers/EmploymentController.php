@@ -276,6 +276,15 @@ class EmploymentController extends Controller
         }
     }
 
+    public function subscribe() {
+        $user = auth()->user();
+        $values = request()->all();
+        $employee = DB::table('employees')->where('user_id', $user->id)->first();
+        DB::table('employees_employments')
+            ->insert(array('employee_id' => $employee->id, 'employment_id' => $values['employment_id']));
+        return response(null, 204);
+    }
+
     /**
      * @OA\DELETE(
      *  tags={"EmploymentController"},

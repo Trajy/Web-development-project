@@ -26,6 +26,10 @@ Route::middleware(['auth:sanctum', 'ability:employer'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'ability:employee'])->group(function () {
+    Route::post('employments/subscribe', [EmploymentController::class, 'subscribe']);
+});
+
+Route::middleware(['auth:sanctum', 'ability:employee'])->group(function () {
     Route::resource('employees', EmployeeController::class);
 });
 
