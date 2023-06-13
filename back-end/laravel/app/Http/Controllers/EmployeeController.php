@@ -143,7 +143,7 @@ class EmployeeController extends AuthController
             return response(null, 204);
         }
         else {
-            return 'cai no else';
+            return  abort(403, 'Unauthorized');
         }
     }
 
