@@ -1184,6 +1184,50 @@
                     }
                 ]
             }
+        },
+        "/api/employments/subscribe": {
+            "post": {
+                "tags": [
+                    "EmploymentController"
+                ],
+                "summary": "Inscricao em uma vaga",
+                "description": "end-point utilizado para inscricao em uma nova vaga (apenas colaboradores)",
+                "operationId": "522001cedbb49947fdf1e5c0758c2cf8",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "employment_id"
+                                ],
+                                "properties": {
+                                    "employment_id": {
+                                        "type": "string",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbiden (Ao tentar utilizar um token do tipo empregador/employer)"
+                    },
+                    "500": {
+                        "description": "Interna Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
         }
     },
     "components": {

@@ -276,6 +276,36 @@ class EmploymentController extends Controller
         }
     }
 
+    /**
+     * @OA\POST(
+     *  tags={"EmploymentController"},
+     *  summary="Inscricao em uma vaga",
+     *  description="end-point utilizado para inscricao em uma nova vaga (apenas colaboradores)",
+     *  path="/api/employments/subscribe",
+     *  security={ {"bearerToken":{}} },
+     *  @OA\RequestBody(
+     *      @OA\MediaType(
+     *          mediaType="application/json",
+     *          @OA\Schema(
+     *              required={"employment_id"},
+     *              @OA\Property(property="employment_id", type="string", example="3"),
+     *          )
+     *      ),
+     *  ),
+     *  @OA\Response(
+     *    response=204,
+     *    description="No Content",
+     *  ),
+     * @OA\Response(
+     *    response=403,
+     *    description="Forbiden (Ao tentar utilizar um token do tipo empregador/employer)",
+     *  ),
+     * @OA\Response(
+     *    response=500,
+     *    description="Interna Server Error",
+     *  ),
+     * )
+     */
     public function subscribe() {
         $user = auth()->user();
         $values = request()->all();
