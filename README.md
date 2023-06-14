@@ -38,4 +38,4 @@
  A documentação dos end-points foi desenvolvida utilizando o [swagger](https://swagger.io/specification) pode ser acessada localmente em http://127.0.0.1/api-documentation/index.html
 
 ## Relacionamento entre as entidades do Banco de dados
-<img src="./laravel/docs/jobs4u-db-relationship.jpg">
+<img src="./back-end/laravel/docs/jobs4u-db-relationship.jpg">
